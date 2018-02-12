@@ -1,0 +1,43 @@
+{
+  "name": "dataloader-values",
+  "version": "1.0.0",
+  "description": "Uphold value constraints of dataloader batch function",
+  "license": "MIT",
+  "author": "Evan Corl",
+  "contributors": [
+    "Evan Corl <evan@poeticsystems.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evancorl/dataloader-values"
+  },
+  "homepage": "https://github.com/evancorl/dataloader-values#readme",
+  "bugs": {
+    "url": "https://github.com/evancorl/dataloader-values/issues"
+  },
+  "keywords": [
+    "dataloader",
+    "graphql"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src --ext .js",
+    "build": "rm -rf dist/; babel src --out-dir dist/",
+    "prepublishOnly": "yarn run build"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.2.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.11.0",
+    "jest": "^22.2.2"
+  }
+}

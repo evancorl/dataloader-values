@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "plugins": [
+    "jest"
+  ],
+  "env": {
+    "jest/globals": true
+  }
+}
