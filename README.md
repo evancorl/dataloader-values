@@ -2,11 +2,21 @@
 
 [dataloader](https://www.npmjs.com/package/dataloader) is an awesome package used for batching/caching and plays really well with GraphQL.
 
-The only purpose of this package is to format the values returned from a batch function to uphold [dataloader constraints](https://www.npmjs.com/package/dataloader#batch-function):
+The only purpose of this package is to format the array of values returned from a batch function to uphold [dataloader constraints](https://www.npmjs.com/package/dataloader#batch-function):
 * The Array of values must be the same length as the Array of keys.
 * Each index in the Array of values must correspond to the same index in the Array of keys.
 
 Missing values are filled in with `null` for keys with single values and `[]` for keys with many values.
+
+## Installation
+
+```shell
+yarn add dataloader-values
+```
+or
+```shell
+npm install dataloader-values
+```
 
 ## Usage
 
