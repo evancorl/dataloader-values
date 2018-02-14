@@ -47,7 +47,7 @@ import batchFetchComments from './batchFetchComments'; // Your batch function
 
 const commentsLoader = new DataLoader(async keys => {
   // Returns flattened, ungrouped values
-  const values = await batchFetchLocations(keys);
+  const values = await batchFetchComments(keys);
 
   // Returns values grouped into an arrays by key
   const alignedValues = alignDataloaderValues({
