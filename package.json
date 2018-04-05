@@ -1,6 +1,6 @@
 {
   "name": "dataloader-values",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Uphold value constraints of dataloader batch function",
   "license": "MIT",
   "author": "Evan Corl",
