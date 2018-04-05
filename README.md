@@ -23,13 +23,13 @@ npm install dataloader-values
 Consider the [example](https://www.npmjs.com/package/dataloader#batch-function) from dataloader. Your implementation might look like this:
 ```js
 import DataLoader from 'dataloader';
-import alignDataloaderValues from 'dataloader-values';
+import alignDataLoaderValues from 'dataloader-values';
 import batchFetchLocations from './batchFetchLocations'; // Your batch function
 
 const locationLoader = new DataLoader(async keys => {
   const values = await batchFetchLocations(keys);
-  
-  const alignedValues = alignDataloaderValues({
+
+  const alignedValues = alignDataLoaderValues({
     keys,
     values,
     getKey: ({ id }) => id,
@@ -42,7 +42,7 @@ const locationLoader = new DataLoader(async keys => {
 You can also return values grouped into arrays by key (e.g., in a one-to-many relationship). For instance:
 ```js
 import DataLoader from 'dataloader';
-import alignDataloaderValues from 'dataloader-values';
+import alignDataLoaderValues from 'dataloader-values';
 import batchFetchComments from './batchFetchComments'; // Your batch function
 
 const commentsLoader = new DataLoader(async keys => {
@@ -50,7 +50,7 @@ const commentsLoader = new DataLoader(async keys => {
   const values = await batchFetchComments(keys);
 
   // Returns values grouped into an arrays by key
-  const alignedValues = alignDataloaderValues({
+  const alignedValues = alignDataLoaderValues({
     keys,
     values,
     getKey: ({ postId }) => postId,
@@ -71,5 +71,5 @@ Field|Default Value|Description
 ---|---|---
 keys||Array of dataloader keys
 values||Array of values returned from batch function
-getKey||Function that returns a key from a single value (e.g., `({ id }) => id)`
+getKey||Function that returns a stringified key from a single value (e.g., `({ _id }) => String(_id))`
 hasMany|`false`|Boolean to flag whether a key should return many values (i.e., an array)
