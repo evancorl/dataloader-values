@@ -61,7 +61,7 @@ const commentsLoader = new DataLoader(async keys => {
 });
 ```
 
-See [tests](https://github.com/evancorl/dataloader-values/blob/master/src/index.test.js) for a better breakdown of the data transformation.
+See [tests](https://github.com/evancorl/dataloader-values/blob/master/src/index.test.ts) for a better breakdown of the data transformation.
 
 ## API
 
