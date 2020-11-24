@@ -1,4 +1,4 @@
-import alignDataloaderValues from './index';
+import { alignManyValues, alignSingleValues } from './index';
 
 // https://www.npmjs.com/package/dataloader#batch-function
 test('correctly aligns values from dataloader example', () => {
@@ -10,7 +10,7 @@ test('correctly aligns values from dataloader example', () => {
     { id: 2, name: 'San Francisco' },
   ];
 
-  const alignedValues = alignDataloaderValues({
+  const alignedValues = alignSingleValues({
     keys,
     values,
     getKey: (({ id }) => id),
@@ -37,11 +37,10 @@ test('correctly aligns relational values (arrays)', () => {
     { relationalId: 1, name: 'Jimmy Thigpen' },
   ];
 
-  const alignedValues = alignDataloaderValues({
+  const alignedValues = alignManyValues({
     keys,
     values,
     getKey: (({ relationalId }) => relationalId),
-    hasMany: true,
   });
 
   const expectedValues = [

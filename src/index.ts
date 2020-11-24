@@ -1,46 +1,31 @@
-export interface DataLoaderOptions<TKey = any, TValue = any> {
-  keys: TKey[];
+export type DataLoaderKey = string | number;
+
+export interface AlignValuesArgs<TValue = any> {
+  keys: DataLoaderKey[];
   values: TValue[];
-  getKey: (value : any) => string;
-  hasMany?: boolean;
+  getKey: (value : TValue) => DataLoaderKey;
 }
 
-function alignDataLoaderValues<TKey = any, TValue = any>(
-  options: DataLoaderOptions<TKey, TValue>,
-) {
-  const {
-    keys,
-    values,
-    getKey,
-    hasMany = false,
-  } = options;
+export function alignSingleValues<TValue = any>(args: AlignValuesArgs<TValue>) {
+  const { keys, values, getKey } = args;
 
   // Build indexed object that maps keys to values
-  const indexedValues = values.reduce((acc : object, nextValue : TValue) => {
+  const indexedValues = values.reduce((acc: object, nextValue: TValue) => {
     const key = getKey(nextValue);
-
-    // For "hasMany" relationships, return an array of values instead of a single value
-    const value = hasMany
-      ? [
-        // Flattened values are grouped into an array by key
-        ...acc[key] || [],
-        nextValue,
-      ]
-      : nextValue;
 
     return {
       ...acc,
-      [key]: value,
+      [key]: nextValue,
     };
   }, {});
 
   // "We must return an Array of values the same length as the Array of keys,
   // and re-order them to ensure each index aligns with the original keys"
-  const alignedValues = keys.map((key) : TValue | TValue[] => {
-    const value = indexedValues[String(key)];
+  const alignedValues = keys.map((key): TValue => {
+    const value = indexedValues[key];
 
     if (value === undefined) {
-      return hasMany ? [] : null; // Fill in missing values
+      return null; // Fill in missing values
     }
 
     return value;
@@ -49,4 +34,37 @@ function alignDataLoaderValues<TKey = any, TValue = any>(
   return alignedValues;
 }
 
-export default alignDataLoaderValues;
+export function alignManyValues<TValue = any>(args: AlignValuesArgs<TValue>) {
+  const { keys, values, getKey } = args;
+
+  // Build indexed object that maps keys to values
+  const indexedValues = values.reduce((acc: object, nextValue: TValue) => {
+    const groupKey = getKey(nextValue);
+
+    // Return an array of values instead of a single value
+    const nextGroupedValues = [
+      // Flattened values are grouped into an array by key
+      ...(acc[groupKey] || []),
+      nextValue,
+    ];
+
+    return {
+      ...acc,
+      [groupKey]: nextGroupedValues,
+    };
+  }, {});
+
+  // "We must return an Array of values the same length as the Array of keys,
+  // and re-order them to ensure each index aligns with the original keys"
+  const alignedValues = keys.map((key): TValue[] => {
+    const value = indexedValues[key];
+
+    if (value === undefined) {
+      return []; // Fill in missing values
+    }
+
+    return value;
+  });
+
+  return alignedValues;
+}
